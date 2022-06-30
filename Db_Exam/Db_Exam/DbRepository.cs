@@ -1,4 +1,5 @@
 ﻿using Db_Exam.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,20 +16,28 @@ namespace Db_Exam
             _dbContext = new ExamDbContext();
         }
         public void AddStudent(Student student)
-        {
-            _dbContext.Students.Add(student);
+        {         
+             _dbContext.Students.Add(student);
         }
         public void AddLecture(Lecture lecture)
         {
             _dbContext.Lectures.Add(lecture);
         }
         public void AddDepartment(Department department)
-        {
+        {            
             _dbContext.Departments.Add(department);
         }
         public void SaveChanges()
         {
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+
+            }
+            catch (DbUpdateException)
+            {
+
+            }
         }
     }
 }

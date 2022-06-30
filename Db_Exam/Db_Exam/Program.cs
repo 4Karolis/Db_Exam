@@ -2,7 +2,8 @@
 
 var blService = new BL_Service();
 
-
+//CreateDepartment(); //WORKS
+CreateStudent();
 
 void CreateStudent()
 {
