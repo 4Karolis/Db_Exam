@@ -14,6 +14,7 @@ namespace Db_Exam.Entities
 
         public Lecture(string name)
         {
+            Name = name;
             LectureDepartments = new List<Department>();
         }
         private Lecture() { }
