@@ -11,7 +11,7 @@ namespace Db_Exam
         private readonly DbRepository _dbRepository;
         public BL_Service()
         {
-            _dbRepository = new DbRepository();
+            _dbRepository = new DbRepository(); 
         }
     }
 }

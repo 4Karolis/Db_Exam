@@ -13,5 +13,9 @@ namespace Db_Exam
         {
             _dbContext = new ExamDbContext();
         }
+        public void SaveChanges()
+        {
+            _dbContext.SaveChanges();
+        }
     }
 }
