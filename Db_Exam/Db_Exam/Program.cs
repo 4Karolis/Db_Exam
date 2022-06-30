@@ -9,32 +9,78 @@ var blService = new BL_Service();
 //CreateStudentToDepartment();// WORKS
 MainMenu2();
 
-int DepartmentManu()
+// Stuff to do: Select List of lectures by Department Id to use when changing students department.
+void WrongInput()
 {
-    Console.WriteLine("-------------------------------------------");
-    Console.WriteLine("           [Department Menu]");
-    Console.WriteLine("-------------------------------------------");
+    Console.WriteLine("Wrong input. Select from the list!");
+    Console.WriteLine("Press [Enter] to continue");
+    Console.ReadLine();
+    Console.Clear();
+}
+int DepartmentMenu()
+{
+    Console.WriteLine("---------------------------------------------------------------------------------");
+    Console.WriteLine("                                [Department Menu]");
+    Console.WriteLine("---------------------------------------------------------------------------------");
     Console.WriteLine("[1] Create Department | [2] Add Student [3] Add Lecture | [4] See Department List");
     // [2.1 Existing student] [2.2 Create new student] 
     // [3.1 Existing Lecture] [3.2 Create new lecture]
+    int.TryParse(Console.ReadLine(), out int userInput);
+    switch (userInput)
+    {
+        case 1:
+            CreateDepartment();
+            Console.WriteLine($"Department has been created!");
+            break;
+        case 2:
+            CreateStudentToDepartment(); // add also lectures!
+            break;
+        case 3:
+            //add lecture. Print list, select by input, return and assign
+            break;
+        case 4:
+            //print detailed list. What student's and what lectures it has
+            break;
+        default:
+            WrongInput();
+            DepartmentMenu();
+            break;
+    }
     return 0;
 }
 int LectureMenu()
 {
-    Console.WriteLine("-------------------------------------------");
-    Console.WriteLine("              [Lecture Menu]");
-    Console.WriteLine("-------------------------------------------");
+    Console.WriteLine("---------------------------------------------------------------------------");
+    Console.WriteLine("                              [Lecture Menu]");
+    Console.WriteLine("---------------------------------------------------------------------------");
     Console.WriteLine("[1] Create Lecture | [2] Change Lecture's department | [3] See Lecture List");
     // [1 to existing department]
+    int.TryParse(Console.ReadLine(), out int userInput);
+    switch (userInput)
+    {
+        case 1:
+            CreateLecture();
+            break;
+        case 2:
+            // change lecture's department
+            break;
+        case 3:
+            //Print full list. What lectures there are. What departments have them. What students have these lectures. 
+            break;
+        default:
+            WrongInput();
+            LectureMenu();
+            break;
+    }
     return 0;
 }
 int StudentMenu()
 {
-    Console.WriteLine("-------------------------------------------");
-    Console.WriteLine("             [Student Menu]");
-    Console.WriteLine("-------------------------------------------");
-    Console.WriteLine("[1] Create Student | [2] Change Student's Department | [3] Add Student's Lecture | " +
-        "[4] Remove Student's Lecture | [5] See Student List");
+    Console.WriteLine("--------------------------------------------------------------------------------");
+    Console.WriteLine("                                 [Student Menu]");
+    Console.WriteLine("--------------------------------------------------------------------------------");
+    Console.WriteLine("[1] Create Student | [2] Change Student's Department | [3] Add Student's Lecture");
+    Console.WriteLine("[4] Remove Student's Lecture | [5] See Student List"); 
     //[1 create student. add to department. add lecture/-es]
     return 0;
 }
@@ -66,25 +112,19 @@ int MainMenu2()
     switch (menuChoise)
     {
         case 1:
-            Console.WriteLine("Succes: 1");
-            Console.WriteLine("[ENTER] to continue");
-            Console.ReadLine();
+            Console.Clear();
+            DepartmentMenu();
             break;
         case 2:
-            Console.WriteLine("Succes: 2");
-            Console.WriteLine("[ENTER] to continue");
-            Console.ReadLine();
+            Console.Clear();
+            LectureMenu();
             break;
         case 3:
-            Console.WriteLine("Succes: 3");
-            Console.WriteLine("[ENTER] to continue");
-            Console.ReadLine();
+            Console.Clear();
+            StudentMenu();
             break;
         default:
-            Console.WriteLine("Wrong input. Select from the list!");
-            Console.WriteLine("Press [Enter] to continue");
-            Console.ReadLine();
-            Console.Clear();
+            WrongInput();
             MainMenu2();
             break;
     }
