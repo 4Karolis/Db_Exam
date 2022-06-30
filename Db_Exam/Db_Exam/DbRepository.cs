@@ -14,6 +14,14 @@ namespace Db_Exam
         {
             _dbContext = new ExamDbContext();
         }
+        public void AddStudent(Student student)
+        {
+            _dbContext.Students.Add(student);
+        }
+        public void AddLecture(Lecture lecture)
+        {
+            _dbContext.Lectures.Add(lecture);
+        }
         public void AddDepartment(Department department)
         {
             _dbContext.Departments.Add(department);
