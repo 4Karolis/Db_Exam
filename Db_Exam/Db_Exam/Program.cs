@@ -27,7 +27,7 @@ int MainMenu()
     }
     return menuChoise;
 }
-void MainMenu2()
+int MainMenu2()
 {
     Console.WriteLine("-------------------------------------------");
     Console.WriteLine("     [Welcome to Chaltura University]");
@@ -59,6 +59,8 @@ void MainMenu2()
             MainMenu2();
             break;
     }
+    return menuChoise;
+
 }
 
 void PrintAllDepartments()
