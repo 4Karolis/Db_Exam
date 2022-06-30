@@ -9,7 +9,7 @@ namespace Db_Exam.Entities
     public class Lecture
     {
         public int Id { get; set; }
-        public Department Department { get; set; }
+        public List<Department> LectureDepartments { get; set; }
 
     }
 }
