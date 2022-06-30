@@ -22,6 +22,14 @@ namespace Db_Exam.Entities
             StudentLectures = new List<Lecture>();
             //add StudentDepartment = new Department();?
         }
+        public Student(string firstName, string lastName, DateTime dateOfBirth, Department studentDepartment)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            DateOfBirth = dateOfBirth;
+            StudentLectures = new List<Lecture>();
+            StudentDepartment = studentDepartment;
+        }
         private Student() { }
     }
 }
