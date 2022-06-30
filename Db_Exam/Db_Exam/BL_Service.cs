@@ -22,7 +22,7 @@ namespace Db_Exam
         }
         public void CreateLecture(string name)
         {
-            var lecture = new Lecture();
+            var lecture = new Lecture(name);
             _dbRepository.AddLecture(lecture);
             _dbRepository.SaveChanges();
         }

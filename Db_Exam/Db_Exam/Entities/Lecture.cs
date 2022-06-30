@@ -12,10 +12,10 @@ namespace Db_Exam.Entities
         public string Name { get; set; }
         public List<Department> LectureDepartments { get; set; }
 
-        public Lecture()
+        public Lecture(string name)
         {
             LectureDepartments = new List<Department>();
         }
-        //private Lecture() { }
+        private Lecture() { }
     }
 }
