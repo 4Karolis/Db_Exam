@@ -7,7 +7,7 @@ var blService = new BL_Service();
 //CreateStudent();// DOES NOT WORK
 //PrintAllDepartments(); // WORKS
 //CreateStudentToDepartment();// WORKS
-MainMenu();
+MainMenu2();
 
 int MainMenu()
 {
@@ -26,6 +26,39 @@ int MainMenu()
         MainMenu();
     }
     return menuChoise;
+}
+void MainMenu2()
+{
+    Console.WriteLine("-------------------------------------------");
+    Console.WriteLine("     [Welcome to Chaltura University]");
+    Console.WriteLine("-------------------------------------------");
+    Console.WriteLine($"[1] Departments | [2] Lectures | [3] Students");
+    int.TryParse(Console.ReadLine(), out int menuChoise);
+    switch (menuChoise)
+    {
+        case 1:
+            Console.WriteLine("Succes: 1");
+            Console.WriteLine("[ENTER] to continue");
+            Console.ReadLine();
+            break;
+        case 2:
+            Console.WriteLine("Succes: 2");
+            Console.WriteLine("[ENTER] to continue");
+            Console.ReadLine();
+            break;
+        case 3:
+            Console.WriteLine("Succes: 3");
+            Console.WriteLine("[ENTER] to continue");
+            Console.ReadLine();
+            break;
+        default:
+            Console.WriteLine("Wrong input. Select from the list!");
+            Console.WriteLine("Press [Enter] to continue");
+            Console.ReadLine();
+            Console.Clear();
+            MainMenu2();
+            break;
+    }
 }
 
 void PrintAllDepartments()
