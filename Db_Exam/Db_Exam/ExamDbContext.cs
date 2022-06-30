@@ -10,9 +10,9 @@ namespace Db_Exam
 {
     public class ExamDbContext : DbContext
     {
-        DbSet<Department> Departments { get; set; }
-        DbSet<Lecture> Lectures { get; set; }
-        DbSet<Student> Students { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Lecture> Lectures { get; set; }
+        public DbSet<Student> Students { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
