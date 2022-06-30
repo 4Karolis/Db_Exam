@@ -11,5 +11,10 @@ namespace Db_Exam.Entities
         public int Id { get; set; }
         public List<Department> LectureDepartments { get; set; }
 
+        public Lecture()
+        {
+            LectureDepartments = new List<Department>();
+        }
+        //private Lecture() { }
     }
 }

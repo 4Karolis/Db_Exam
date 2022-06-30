@@ -12,5 +12,13 @@ namespace Db_Exam.Entities
         public string Name { get; set; }
         public List<Student> DepartmentStudents { get; set; }
         public List<Lecture> DepartmentLectures { get; set; }
+
+        public Department(string name)
+        {
+            Name = name;
+            DepartmentStudents = new List<Student>();
+            DepartmentLectures = new List<Lecture>();
+        }
+        private Department() { }
     }
 }
