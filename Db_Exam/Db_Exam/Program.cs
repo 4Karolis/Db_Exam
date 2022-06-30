@@ -6,7 +6,27 @@ var blService = new BL_Service();
 //CreateDepartment(); //WORKS
 //CreateStudent();// DOES NOT WORK
 //PrintAllDepartments(); // WORKS
-CreateStudentToDepartment();
+//CreateStudentToDepartment();// WORKS
+MainMenu();
+
+int MainMenu()
+{
+    Console.WriteLine("-------------------------------------------");
+    Console.WriteLine("     [Welcome to Chaltura University]");
+    Console.WriteLine("-------------------------------------------");
+    Console.WriteLine($"[1] Departments | [2] Lectures | [3] Students");
+    int.TryParse(Console.ReadLine(), out int menuChoise);
+    bool correctInput = menuChoise != 0 && menuChoise != null;
+    while (!correctInput)
+    {
+        Console.WriteLine("Wrong input. Seleect from the list!");
+        Console.WriteLine("Press [ENTER] to continue");
+        Console.ReadLine();
+        Console.Clear();
+        MainMenu();
+    }
+    return menuChoise;
+}
 
 void PrintAllDepartments()
 {    
