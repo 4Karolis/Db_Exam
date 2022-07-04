@@ -15,9 +15,18 @@ namespace Db_Exam
         {
             _dbContext = new ExamDbContext();
         }
-        public void AddLectureToDepartment(Department department, Lecture lecture)
+        //public void AddLectureToDepartment(Department department, Lecture lecture)
+        //{
+        //    _dbContext.Lectures.Add(lecture);
+        //}
+        
+        public Lecture GetLectureByName(string name)
         {
-
+            return _dbContext.Lectures.FirstOrDefault(l => l.Name == name);
+        }
+        public Department GetDepartmentByName(string name)
+        {
+            return _dbContext.Departments.FirstOrDefault(d => d.Name == name);
         }
         public List<Student> GetStudentsByDepartment(int departmentId)
         {
@@ -43,6 +52,18 @@ namespace Db_Exam
         public void AddDepartment(Department department)
         {            
             _dbContext.Departments.Add(department);
+        }
+        public void UpdateStudent(Student student)
+        {
+            _dbContext.Attach(student);
+        }
+        public void Updatelecture(Lecture lecture)
+        {
+            _dbContext.Attach(lecture); // prijungia objekta prie EF tracker
+        }
+        public void UpdateDepartment(Department department)
+        {
+            _dbContext.Attach(department); // prijungia objekta prie EF tracker
         }
         public void SaveChanges()
         {

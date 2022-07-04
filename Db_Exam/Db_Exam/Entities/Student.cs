@@ -22,6 +22,7 @@ namespace Db_Exam.Entities
             StudentLectures = new List<Lecture>();
             //StudentDepartment = new Department();
             //add StudentDepartment = new Department();?
+            //NEW DEPO missing!
         }
         public Student(string firstName, string lastName, DateTime dateOfBirth, Department studentDepartment)
         {

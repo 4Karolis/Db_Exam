@@ -36,6 +36,7 @@ int DepartmentMenu()
             CreateStudentToDepartment(); // add also lectures!
             break;
         case 3:
+            CreateLectureToDepartment();
             //add lecture. Print list, select by input, return and assign
             break;
         case 4:
@@ -162,6 +163,15 @@ Department GetDepartmentById()
     var departmentId = int.Parse(Console.ReadLine());
     return blService.GetDepartmentById(departmentId);
 }
+void CreateLectureToDepartment()
+{
+    Console.WriteLine("Enter name of the Lecture:");
+    string name = Console.ReadLine();
+    var department = GetDepartmentById();
+    blService.CreateLectureToDepartment(name, department);
+
+}
+
 void CreateStudentToDepartment()
 {
     var department = GetDepartmentById();

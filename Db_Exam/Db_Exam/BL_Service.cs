@@ -26,6 +26,43 @@ namespace Db_Exam
         {
             return _dbRepository.GetStudentsByDepartment(departmentId);
         }
+        
+        public void CreateLectureToDepartment(string name, Department department)
+        {
+            var lecture = new Lecture(name);
+            _dbRepository.AddLecture(lecture);
+            _dbRepository.SaveChanges();
+            //get lecture by name 
+            //select department ir tada lectures.depart.add
+            //GetLectureByName(name);            
+            AssignLectureToDepartment(name, department);
+
+
+
+        }
+        public void AssignLectureToDepartment(string name, Department department)
+        {
+            var lecture = GetLectureByName(name);
+            
+            if (lecture.LectureDepartments.Any(d => d.Name.ToUpper() == department.Name.ToUpper()))
+            {
+                return;
+            }
+            var departmentFromDb = _dbRepository.GetDepartmentByName(department.Name);
+            //var lectureFromDB = _dbRepository.GetLectureByName(name);
+            lecture.LectureDepartments.Add(departmentFromDb ?? new Department(department.Name));
+
+            _dbRepository.Updatelecture(lecture);
+            _dbRepository.SaveChanges();
+        }
+        public Lecture GetLectureByName(string name)
+        {
+            return _dbRepository.GetLectureByName(name);
+        }
+        public Department GetDepartmentByName(string name)
+        {
+            return _dbRepository.GetDepartmentByName(name);
+        }
         public void CreateStudentToDepartment(string firstName, string lastName, DateTime dateOfBirth, Department department)
         {
             var student = new Student(firstName, lastName, dateOfBirth, department);

@@ -17,6 +17,11 @@ namespace Db_Exam.Entities
             Name = name;
             LectureDepartments = new List<Department>();
         }
+        //public Lecture(string name, Department department)
+        //{
+        //    Name = name;
+        //    LectureDepartments = LectureDepartments.Add(department);
+        //}
         private Lecture() { }
     }
 }
