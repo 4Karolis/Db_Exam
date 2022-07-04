@@ -1,5 +1,6 @@
 ﻿using Db_Exam;
 using Db_Exam.Entities;
+using System.Linq;
 
 var blService = new BL_Service();
 
@@ -7,7 +8,13 @@ var blService = new BL_Service();
 //CreateStudent();// DOES NOT WORK
 //PrintAllDepartments(); // WORKS
 //CreateStudentToDepartment();// WORKS
-MainMenu2();
+//MainMenu2();
+var studentId = 1;
+var result = GetLecturesByStudentId(studentId);
+foreach (var item in result)
+{
+    Console.WriteLine($"{item.Id} {item.Name}");
+}
 
 // Stuff to do: Select List of lectures by Department Id to use when changing students department.
 void WrongInput()
@@ -136,6 +143,22 @@ int MainMenu2()
             break;
     }
     return menuChoise;
+}
+List<Lecture> GetLecturesByStudentId(int studentId)
+{
+    var allLectures = blService.GetAllLectures();
+    var studentLectures = new List<Lecture>();
+    foreach (var item in allLectures)
+    {
+        if (item.Students.Any(x => x.Id == studentId))
+        {
+            studentLectures.Add(item);
+        }
+        //item.Students.Where(s => s.Id == studentId);
+    }
+        //item.Students.Where(s => s.Id == studentId);
+        return studentLectures;
+    
 }
 void GetStudentsByDepartment(int departmentId)
 {

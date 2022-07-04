@@ -55,6 +55,10 @@ namespace Db_Exam
             _dbRepository.Updatelecture(lecture);
             _dbRepository.SaveChanges();
         }
+        public List<Lecture> GetAllLectures()
+        {
+            return _dbRepository.GetAllLectures();
+        }
         public Lecture GetLectureByName(string name)
         {
             return _dbRepository.GetLectureByName(name);

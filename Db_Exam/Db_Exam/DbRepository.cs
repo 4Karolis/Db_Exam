@@ -20,6 +20,10 @@ namespace Db_Exam
         //    _dbContext.Lectures.Add(lecture);
         //}
         
+        public List<Lecture> GetAllLectures()
+        {
+            return _dbContext.Lectures.ToList();
+        }
         public Lecture GetLectureByName(string name)
         {
             return _dbContext.Lectures.FirstOrDefault(l => l.Name == name);
