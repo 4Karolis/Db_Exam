@@ -10,14 +10,14 @@ namespace Db_Exam.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Student> DepartmentStudents { get; set; }
-        public List<Lecture> DepartmentLectures { get; set; }
+        public List<Student> Students { get; set; }
+        public List<Lecture> Lectures { get; set; }
 
         public Department(string name)
         {
             Name = name;
-            DepartmentStudents = new List<Student>();
-            DepartmentLectures = new List<Lecture>();
+            Students = new List<Student>();
+            Lectures = new List<Lecture>();
         }
         public Department() { }
     }

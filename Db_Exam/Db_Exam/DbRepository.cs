@@ -31,7 +31,7 @@ namespace Db_Exam
         public List<Student> GetStudentsByDepartment(int departmentId)
         {
             //return _dbContext.Students.Where(s => s.StudentDepartment.Id = departmentId).Tolist();
-            return _dbContext.Students.Where(s => s.StudentDepartment.Id == departmentId).ToList();
+            return _dbContext.Students.Where(s => s.Department.Id == departmentId).ToList();
         }
         public Department GetDepartmentById(int id)
         {

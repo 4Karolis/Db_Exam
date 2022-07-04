@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Db_Exam.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    [Migration("20220630160732_InitialCreate")]
+    [Migration("20220704183142_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,12 +49,11 @@ namespace Db_Exam.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
 
                     b.ToTable("Lectures");
                 });
@@ -67,6 +66,12 @@ namespace Db_Exam.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,72 +80,87 @@ namespace Db_Exam.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudentDepartmentId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentDepartmentId");
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Students");
                 });
 
             modelBuilder.Entity("DepartmentLecture", b =>
                 {
-                    b.Property<int>("DepartmentLecturesId")
+                    b.Property<int>("DepartmentsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LectureDepartmentsId")
+                    b.Property<int>("LecturesId")
                         .HasColumnType("int");
 
-                    b.HasKey("DepartmentLecturesId", "LectureDepartmentsId");
+                    b.HasKey("DepartmentsId", "LecturesId");
 
-                    b.HasIndex("LectureDepartmentsId");
+                    b.HasIndex("LecturesId");
 
                     b.ToTable("DepartmentLecture");
                 });
 
-            modelBuilder.Entity("Db_Exam.Entities.Lecture", b =>
+            modelBuilder.Entity("LectureStudent", b =>
                 {
-                    b.HasOne("Db_Exam.Entities.Student", null)
-                        .WithMany("StudentLectures")
-                        .HasForeignKey("StudentId");
+                    b.Property<int>("LecturesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LecturesId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("LectureStudent");
                 });
 
             modelBuilder.Entity("Db_Exam.Entities.Student", b =>
                 {
-                    b.HasOne("Db_Exam.Entities.Department", "StudentDepartment")
-                        .WithMany("DepartmentStudents")
-                        .HasForeignKey("StudentDepartmentId")
+                    b.HasOne("Db_Exam.Entities.Department", "Department")
+                        .WithMany("Students")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("StudentDepartment");
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("DepartmentLecture", b =>
                 {
-                    b.HasOne("Db_Exam.Entities.Lecture", null)
+                    b.HasOne("Db_Exam.Entities.Department", null)
                         .WithMany()
-                        .HasForeignKey("DepartmentLecturesId")
+                        .HasForeignKey("DepartmentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Db_Exam.Entities.Department", null)
+                    b.HasOne("Db_Exam.Entities.Lecture", null)
                         .WithMany()
-                        .HasForeignKey("LectureDepartmentsId")
+                        .HasForeignKey("LecturesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LectureStudent", b =>
+                {
+                    b.HasOne("Db_Exam.Entities.Lecture", null)
+                        .WithMany()
+                        .HasForeignKey("LecturesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Db_Exam.Entities.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Db_Exam.Entities.Department", b =>
                 {
-                    b.Navigation("DepartmentStudents");
-                });
-
-            modelBuilder.Entity("Db_Exam.Entities.Student", b =>
-                {
-                    b.Navigation("StudentLectures");
+                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

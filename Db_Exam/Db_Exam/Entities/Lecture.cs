@@ -10,15 +10,22 @@ namespace Db_Exam.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Department> LectureDepartments { get; set; }
-        public List<Student> LectureStudents { get; set; }
+        public List<Department> Departments { get; set; }
+        public List<Student> Students { get; set; }
 
         public Lecture(string name)
         {
             Name = name;
-            LectureDepartments = new List<Department>();
-            LectureStudents = new List<Student>();
+            Departments = new List<Department>();
+            Students = new List<Student>();
         }
+        //public Lecture(string name, Department department)
+        //{
+        //    Name = name;
+        //    Departments = department;
+        //    Departments = new List<Department>();
+        //    Students = new List<Student>();
+        //}
         //public Lecture(string name, Department department)
         //{
         //    Name = name;

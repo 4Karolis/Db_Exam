@@ -44,13 +44,13 @@ namespace Db_Exam
         {
             var lecture = GetLectureByName(name);
             
-            if (lecture.LectureDepartments.Any(d => d.Name.ToUpper() == department.Name.ToUpper()))
+            if (lecture.Departments.Any(d => d.Name.ToUpper() == department.Name.ToUpper()))
             {
                 return;
             }
             var departmentFromDb = _dbRepository.GetDepartmentByName(department.Name);
             //var lectureFromDB = _dbRepository.GetLectureByName(name);
-            lecture.LectureDepartments.Add(departmentFromDb ?? new Department(department.Name));
+            lecture.Departments.Add(departmentFromDb ?? new Department(department.Name));
 
             _dbRepository.Updatelecture(lecture);
             _dbRepository.SaveChanges();
