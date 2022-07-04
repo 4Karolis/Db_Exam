@@ -20,6 +20,7 @@ namespace Db_Exam.Entities
             LastName = lastName;
             DateOfBirth = dateOfBirth;
             StudentLectures = new List<Lecture>();
+            //StudentDepartment = new Department();
             //add StudentDepartment = new Department();?
         }
         public Student(string firstName, string lastName, DateTime dateOfBirth, Department studentDepartment)

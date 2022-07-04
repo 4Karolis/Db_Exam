@@ -22,7 +22,7 @@ int DepartmentMenu()
     Console.WriteLine("---------------------------------------------------------------------------------");
     Console.WriteLine("                                [Department Menu]");
     Console.WriteLine("---------------------------------------------------------------------------------");
-    Console.WriteLine("[1] Create Department | [2] Add Student [3] Add Lecture | [4] See Department List");
+    Console.WriteLine("[1] Create Department | [2] Add Student [3] Add Lecture | [4] See Department List | [5] Print Department Students");
     // [2.1 Existing student] [2.2 Create new student] 
     // [3.1 Existing Lecture] [3.2 Create new lecture]
     int.TryParse(Console.ReadLine(), out int userInput);
@@ -40,6 +40,12 @@ int DepartmentMenu()
             break;
         case 4:
             //print detailed list. What student's and what lectures it has
+            break;
+        case 5:
+            Console.WriteLine("Enter departments ID: \n");
+            PrintAllDepartments();
+            int.TryParse(Console.ReadLine(), out int departmentId);
+            GetStudentsByDepartment(departmentId);
             break;
         default:
             WrongInput();
@@ -130,7 +136,14 @@ int MainMenu2()
     }
     return menuChoise;
 }
-
+void GetStudentsByDepartment(int departmentId)
+{
+    var studentsFromDepatment = blService.GetStudentsByDepartment(departmentId);
+    foreach (var item in studentsFromDepatment)
+    {
+        Console.WriteLine($"[{item.Id}] {item.FirstName} {item.LastName}");//lectures List
+    }
+}
 void PrintAllDepartments()
 {    
     var departments = blService.GetAllDepartments();

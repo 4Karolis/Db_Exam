@@ -15,6 +15,15 @@ namespace Db_Exam
         {
             _dbContext = new ExamDbContext();
         }
+        public void AddLectureToDepartment(Department department, Lecture lecture)
+        {
+
+        }
+        public List<Student> GetStudentsByDepartment(int departmentId)
+        {
+            //return _dbContext.Students.Where(s => s.StudentDepartment.Id = departmentId).Tolist();
+            return _dbContext.Students.Where(s => s.StudentDepartment.Id == departmentId).ToList();
+        }
         public Department GetDepartmentById(int id)
         {
             return _dbContext.Departments.FirstOrDefault(d => d.Id == id);

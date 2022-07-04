@@ -22,6 +22,10 @@ namespace Db_Exam
         {
             return _dbRepository.GetAllDepartments();
         }
+        public List<Student> GetStudentsByDepartment(int departmentId)
+        {
+            return _dbRepository.GetStudentsByDepartment(departmentId);
+        }
         public void CreateStudentToDepartment(string firstName, string lastName, DateTime dateOfBirth, Department department)
         {
             var student = new Student(firstName, lastName, dateOfBirth, department);

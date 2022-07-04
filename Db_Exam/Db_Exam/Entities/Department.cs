@@ -19,6 +19,6 @@ namespace Db_Exam.Entities
             DepartmentStudents = new List<Student>();
             DepartmentLectures = new List<Lecture>();
         }
-        private Department() { }
+        public Department() { }
     }
 }
