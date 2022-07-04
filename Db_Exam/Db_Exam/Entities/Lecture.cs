@@ -11,11 +11,13 @@ namespace Db_Exam.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Department> LectureDepartments { get; set; }
+        public List<Student> LectureStudents { get; set; }
 
         public Lecture(string name)
         {
             Name = name;
             LectureDepartments = new List<Department>();
+            LectureStudents = new List<Student>();
         }
         //public Lecture(string name, Department department)
         //{

@@ -16,7 +16,7 @@ namespace Db_Exam
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer($"Server=localhost;Database=ExamDb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer($"Server=localhost;Database=ExamDb2;Trusted_Connection=True;");
         }
     }
 }

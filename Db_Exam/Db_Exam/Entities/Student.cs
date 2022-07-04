@@ -13,6 +13,7 @@ namespace Db_Exam.Entities
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public List<Lecture> StudentLectures { get; set; }
+        public int DepartmentId { get;set; }
         public Department StudentDepartment { get; set; }
         public Student(string firstName, string lastName, DateTime dateOfBirth)
         {
@@ -24,14 +25,14 @@ namespace Db_Exam.Entities
             //add StudentDepartment = new Department();?
             //NEW DEPO missing!
         }
-        public Student(string firstName, string lastName, DateTime dateOfBirth, Department studentDepartment)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            DateOfBirth = dateOfBirth;
-            StudentLectures = new List<Lecture>();
-            StudentDepartment = studentDepartment;
-        }
+        //public Student(string firstName, string lastName, DateTime dateOfBirth, Department studentDepartment)
+        //{
+        //    FirstName = firstName;
+        //    LastName = lastName;
+        //    DateOfBirth = dateOfBirth;
+        //    StudentLectures = new List<Lecture>();
+        //    StudentDepartment = studentDepartment;
+        //}
         private Student() { }
     }
 }
