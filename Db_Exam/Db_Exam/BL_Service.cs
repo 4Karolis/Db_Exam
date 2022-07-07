@@ -14,6 +14,14 @@ namespace Db_Exam
         {
             _dbRepository = new DbRepository(); 
         }
+        public Student GetStudentById(int studentId)
+        {
+            return _dbRepository.GetStudentById(studentId);
+        }
+        public List<Student> GetAllStudents()
+        {
+            return _dbRepository.GetAllStudents();
+        }
         public Department GetDepartmentById(int id)
         {
             return _dbRepository.GetDepartmentById(id);
@@ -36,14 +44,26 @@ namespace Db_Exam
             //select department ir tada lectures.depart.add
             //GetLectureByName(name);            
             AssignLectureToDepartment(name, department);
-
-
-
+        }
+        public void AssignStudentAndLectureToDepartment(Student student, Lecture lecture, Department department)
+        {
+            department.Lectures.Add(lecture); //bandyk per _repo gaut reikiamas dalis
+            department.Students.Add(student);
+            _dbRepository.UpdateDepartment(department);
+            _dbRepository.SaveChanges();
         }
         public void AssingLectureToDepartment2(Lecture lecture, Department department)
         {
             lecture.Departments.Add(department);
             _dbRepository.Updatelecture(lecture);
+            _dbRepository.SaveChanges();
+        }
+        public void Assign2(int id, int lecId)
+        {
+            var depart = GetDepartmentById(id);
+            var lecture = GetLectureById(lecId);
+            depart.Lectures.Add(lecture);
+            _dbRepository.UpdateDepartment(depart);
             _dbRepository.SaveChanges();
         }
         public void AssignLectureToDepartment(string name, Department department)

@@ -4,8 +4,52 @@ using System.Linq;
 
 var blService = new BL_Service();
 
-MainMenu3();
+//MainMenu3();
+Assign();
 
+void Assign()
+{
+    Console.WriteLine("Enter DEP id:");
+    var id = int.Parse(Console.ReadLine());
+    Console.WriteLine("Enter lecture id:");
+    var lectureId = int.Parse(Console.ReadLine());
+    blService.Assign2(id, lectureId);
+}
+
+Student GetStudentById(int studentId)
+{
+    return blService.GetStudentById(studentId);
+}
+Student PrintAndGetStudent()
+{
+    Console.WriteLine("-------------------------------------------");
+    Console.WriteLine("            [SELECT STUDENT]");
+    Console.WriteLine("-------------------------------------------");
+    var students = blService.GetAllStudents();
+    foreach (var item in students)
+    {
+        Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName} {item.DateOfBirth}");
+    }
+
+    var studentId = int.Parse(Console.ReadLine());
+    return GetStudentById(studentId);
+}
+void AssignStudentAndLectureToDepartment()
+{
+    var departmentToAdd = GetDepartmentById();// prints and returns selection
+    var studentToAdd = PrintAndGetStudent();
+    var allLectures = GetAllLectures();
+    Console.WriteLine("-------------------------------------------");
+    Console.WriteLine("            [SELECT LECTURE]");
+    Console.WriteLine("-------------------------------------------");
+    foreach (var item in allLectures)
+    {
+        Console.WriteLine($"{item.Id} {item.Name}");
+    }
+    var selectedLecture = int.Parse(Console.ReadLine());
+    var lectureToAdd = GetLectureById(selectedLecture);
+    blService.AssignStudentAndLectureToDepartment(studentToAdd, lectureToAdd, departmentToAdd);
+}
 
 void MainMenu3()
 {
@@ -17,8 +61,17 @@ void MainMenu3()
     Console.WriteLine("[5] Change Student's Department + Lectures | [6] Show all Students of selected Department");
     Console.WriteLine("[7] Show Lectures of selected Department | [8] Show Lectures by selected Student");
 
-
-
+    int.TryParse(Console.ReadLine(), out int menuSelection);
+    switch (menuSelection)
+    {
+        case 1:
+            CreateDepartment();
+            break;
+        default:
+            WrongInput();
+            MainMenu3();
+            break;
+    }
 }
 //CreateDepartment(); //WORKS
 //CreateStudent();// DOES NOT WORK

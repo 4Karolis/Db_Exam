@@ -19,6 +19,14 @@ namespace Db_Exam
         //{
         //    _dbContext.Lectures.Add(lecture);
         //}
+        public Student GetStudentById(int studentId)
+        {
+            return _dbContext.Students.FirstOrDefault(s=>s.Id == studentId);
+        }
+        public List<Student> GetAllStudents()
+        {
+            return _dbContext.Students.ToList();
+        }
         public Lecture GetLectureById(int lectureId)
         {
             return _dbContext.Lectures.FirstOrDefault(l => l.Id == lectureId);
