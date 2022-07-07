@@ -40,6 +40,12 @@ namespace Db_Exam
 
 
         }
+        public void AssingLectureToDepartment2(Lecture lecture, Department department)
+        {
+            lecture.Departments.Add(department);
+            _dbRepository.Updatelecture(lecture);
+            _dbRepository.SaveChanges();
+        }
         public void AssignLectureToDepartment(string name, Department department)
         {
             var lecture = GetLectureByName(name);
@@ -55,6 +61,25 @@ namespace Db_Exam
             _dbRepository.Updatelecture(lecture);
             _dbRepository.SaveChanges();
         }
+        public void AssignLectureToDepartment3(Lecture lecture, Department department)
+        {
+            //var lecturee = GetLectureById(lecture);
+
+            if (lecture.Departments.Any(d => d.Name.ToUpper() == department.Name.ToUpper()))
+            {
+                return;
+            }
+            var departmentFromDb = _dbRepository.GetDepartmentByName(department.Name);
+            //var lectureFromDB = _dbRepository.GetLectureByName(name);
+            lecture.Departments.Add(departmentFromDb ?? new Department(department.Name));
+
+            _dbRepository.Updatelecture(lecture);
+            _dbRepository.SaveChanges();
+        }
+        public Lecture GetLectureById(int lectureId)
+        {
+            return _dbRepository.GetLectureById(lectureId);
+        }
         public List<Lecture> GetAllLectures()
         {
             return _dbRepository.GetAllLectures();
@@ -66,6 +91,10 @@ namespace Db_Exam
         public Department GetDepartmentByName(string name)
         {
             return _dbRepository.GetDepartmentByName(name);
+        }
+        public void UpdateLecture(Lecture lecture)
+        {
+            _dbRepository.Updatelecture(lecture);
         }
         public void CreateStudentToDepartment(string firstName, string lastName, DateTime dateOfBirth, Department department)
         {
