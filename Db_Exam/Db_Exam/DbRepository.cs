@@ -28,11 +28,9 @@ namespace Db_Exam
         {
             return _dbContext.Students.ToList();
         }
-
         #endregion
 
         #region LECTURE
-
         public Lecture GetLectureByName(string name)
         {
             return _dbContext.Lectures.Include(l => l.Departments).Include(l => l.Students).FirstOrDefault(l => l.Name == name);

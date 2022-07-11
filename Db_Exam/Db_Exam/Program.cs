@@ -54,20 +54,7 @@ void MainMenu()
         }
     }
 }
-void ExitApplication()
-{
-    Console.Clear();
-    Console.WriteLine("GoodBye!");
-    Environment.Exit(0);
-}
 
-void EnterToMainMenu()
-{
-    Console.WriteLine("\nPress [ENTER] to go back to MAIN MENU");
-    Console.ReadLine();
-    Console.Clear();
-}
-//Task8
 void ShowLecturesOfStudent()
 {
     var studentId = PrintAndGetStudent();
@@ -81,7 +68,7 @@ void ShowLecturesOfStudent()
     }
     EnterToMainMenu();
 }
-//Task7
+
 void ShowAllLecturesOfDepartment()
 {
     var departmentId = PrintAndGetDepartment();
@@ -95,7 +82,7 @@ void ShowAllLecturesOfDepartment()
     }
     EnterToMainMenu();
 }
-//Task6
+
 void ShowAllStudentsOfDepartment()
 { 
     var departmentId = PrintAndGetDepartment();
@@ -110,7 +97,7 @@ void ShowAllStudentsOfDepartment()
     }
     EnterToMainMenu();
 }
-//Task5
+
 void AssignStudentToDifferentDepartmentAndAssignDepartmentsLectures()
 {
     Console.Clear();
@@ -126,7 +113,7 @@ void AssignStudentToDifferentDepartmentAndAssignDepartmentsLectures()
     Console.WriteLine("Student was transfered to other Department with that department's Lectures!");
     EnterToMainMenu();
 }
-//Task4
+
 void CreateStudentAddToDepartmentAndAssignLectures()
 {
     Console.Clear();
@@ -138,7 +125,7 @@ void CreateStudentAddToDepartmentAndAssignLectures()
     Console.WriteLine("Student created and added to Department with Department's Lectures successfully!");
     EnterToMainMenu();
 }
-//Task3
+
 void CreateLectureAndAssignToDepartment()
 {
     Console.Clear();
@@ -154,7 +141,7 @@ void CreateLectureAndAssignToDepartment()
     Console.WriteLine("Lecture was created and added to Department successfully!");
     EnterToMainMenu();
 }
-//Task2
+
 void AddStudentOrLectureToExistingDepartment()
 {
     Console.Clear();
@@ -193,7 +180,7 @@ void AddStudentOrLectureToExistingDepartment()
             break;
     }
 }
-//Task1
+
 void CreateDepartmentAddStudentAddLecture()
 {
     Console.Clear();
@@ -210,6 +197,20 @@ void CreateDepartmentAddStudentAddLecture()
     blService.AssignStudentAndLectureToDepartment(studentId, lectureId, departmentName);
     Console.WriteLine("Department was created + student and lecture assigned succesfully!");
     EnterToMainMenu();
+}
+
+void ExitApplication()
+{
+    Console.Clear();
+    Console.WriteLine("GoodBye!");
+    Environment.Exit(0);
+}
+
+void EnterToMainMenu()
+{
+    Console.WriteLine("\nPress [ENTER] to go back to MAIN MENU");
+    Console.ReadLine();
+    Console.Clear();
 }
 
 int PrintAndGetStudent()
@@ -255,29 +256,6 @@ int PrintAndGetDepartment()
     var departmentId = int.Parse(Console.ReadLine());
 
     return departmentId;
-}
-
-void MainMenu3()
-{
-    Console.WriteLine("--------------------------------------------------------------------------------------------------------");
-    Console.WriteLine("                                            [Select Task]");
-    Console.WriteLine("--------------------------------------------------------------------------------------------------------");
-    Console.WriteLine("[1] Create Depatment, Add students and Lectures | [2] Add Student/Lecture to existing Department");
-    Console.WriteLine("[3] Create Lecture and Assign to Department | [4] Create Student, Assign to Department + Assign Lectures");
-    Console.WriteLine("[5] Change Student's Department + Lectures | [6] Show all Students of selected Department");
-    Console.WriteLine("[7] Show Lectures of selected Department | [8] Show Lectures by selected Student");
-
-    int.TryParse(Console.ReadLine(), out int menuSelection);
-    switch (menuSelection)
-    {
-        case 1:
-            CreateDepartment();
-            break;
-        default:
-            WrongInput();
-            MainMenu3();
-            break;
-    }
 }
 
 void WrongInput()
