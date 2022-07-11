@@ -87,7 +87,11 @@ namespace Db_Exam
         //public Student GetStudentByNameLastNameAndDateOfBirth(string name, string lastName)
         //{
         //    return _dbContext.Students.Where(s=>s.FirstName == name && s.LastName == lastName);
-        //}
+        //}4
+        public List<Lecture> GetLecturesByStudentId(int studentId)
+        {
+            return _dbContext.Lectures.Where(l => l.Students.Any(s => s.Id == studentId)).ToList();
+        }
         public List<Lecture> GetLecturesByDepartmentId(int departmentId)
         {
             return _dbContext.Lectures.Include(l => l.Students).Include(l => l.Departments).Where(l => l.Departments.Any(d=>d.Id == departmentId)).ToList();

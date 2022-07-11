@@ -6,8 +6,31 @@ var blService = new BL_Service();
 
 //MainMenu3();
 //Assign();
+ShowLecturesOfStudent();
 
-ShowAllStudentsOfDepartment();
+//Task8
+void ShowLecturesOfStudent()
+{
+    var studentId = PrintAndGetStudent();
+    var lectures = blService.GetLecturesByStudentId(studentId);
+    foreach (var item in lectures)
+    {
+        Console.WriteLine($"{item.Id} {item.Name}");
+    }
+}
+
+//Task7
+void ShowAllLecturesOfDepartment()
+{
+    var departmentId = PrintAndGetDepartment();
+    var lectures = blService.GetLecturesByDepartmentId(departmentId);
+    Console.WriteLine($"All Lectures of department {departmentId}");
+    foreach (var item in lectures)
+    {
+        Console.WriteLine($"{item.Id} {item.Name}");
+    }
+}
+
 //Task6
 void ShowAllStudentsOfDepartment()
 {
