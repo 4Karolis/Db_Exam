@@ -4,6 +4,7 @@ using System.Linq;
 
 var blService = new BL_Service();
 MainMenu();
+
 void MainMenu()
 {
     while (true)
@@ -15,7 +16,6 @@ void MainMenu()
         Console.WriteLine("[3] Create LECTURE + assign to existing DEPARTMENT \n[4] Create STUDENT + assign to existing DEPARTMENT with LECTURES");
         Console.WriteLine("[5] Transfer STUDENT to other DEPARTMENT + change LECTURES by DEPARTMENT");
         Console.WriteLine("[6] Show STUDENTS of DEPARTMENT | [7] Show LECTURES of DEPARTMENT | [8] Show LECTURES of STUDENT");
-        //var userInput = int.Parse(Console.ReadLine());
         int.TryParse(Console.ReadLine(), out int userInput);
         switch (userInput)
         {
@@ -50,6 +50,7 @@ void MainMenu()
         }
     }
 }
+
 void EnterToMainMenu()
 {
     Console.WriteLine("\nPress [ENTER] to go back to MAIN MENU");
@@ -66,7 +67,7 @@ void ShowLecturesOfStudent()
     Console.WriteLine("[ID] | Lecture Title\n");
     foreach (var item in lectures)
     {
-        Console.WriteLine($"{item.Id} {item.Name}");
+        Console.WriteLine($"[{item.Id}] {item.Name}");
     }
     EnterToMainMenu();
 }
@@ -94,7 +95,8 @@ void ShowAllStudentsOfDepartment()
     Console.WriteLine("[ID] | First Name | Last Name | Date of birth\n");
     foreach (var item in students)
     {
-        Console.WriteLine($"[{item.Id}] {item.FirstName} {item.LastName} {item.DateOfBirth}");
+        var birthDate = String.Format("{0: yyyy-MM-dd}", item.DateOfBirth);
+        Console.WriteLine($"[{item.Id}] {item.FirstName} {item.LastName} {birthDate}");
     }
     EnterToMainMenu();
 }
@@ -106,7 +108,9 @@ void AssignStudentToDifferentDepartmentAndAssignDepartmentsLectures()
     Console.WriteLine("  Transfer STUDENT to other DEPARTMENT + change LECTURES by DEPARTMENT"); 
     Console.WriteLine("------------------------------------------------------------------------\n");
     var studentId = PrintAndGetStudent();
-    var departmentId = PrintAndGetDepartment();    
+    Console.Clear();
+    var departmentId = PrintAndGetDepartment();
+    Console.Clear();
     blService.TrasnferStudentToDepartmentWithLectures(studentId, departmentId);
     Console.Clear();
     Console.WriteLine("Student was transfered to other Department with that department's Lectures!");
@@ -132,7 +136,9 @@ void CreateLectureAndAssignToDepartment()
     Console.WriteLine("          Create LECTURE + add to existing DEPARTMENT");
     Console.WriteLine("-----------------------------------------------------------------\n");
     var lectureName = CreateLecture();
+    Console.Clear();
     var departmentId = PrintAndGetDepartment();
+    Console.Clear();
     blService.AssignLectureToDepartment(lectureName, departmentId);
     Console.Clear();
     Console.WriteLine("Lecture was created and added to Department successfully!");
@@ -152,7 +158,9 @@ void AddStudentOrLectureToExistingDepartment()
         case 1:
             Console.Clear();
             var departmentId = PrintAndGetDepartment();
+            Console.Clear();
             var studentId = PrintAndGetStudent();
+            Console.Clear();
             blService.AssignStudentToDepartment(departmentId, studentId);
             Console.Clear();
             Console.WriteLine("Student was added successfully!");
@@ -161,7 +169,9 @@ void AddStudentOrLectureToExistingDepartment()
         case 2:
             Console.Clear();
             var departmentId2 = PrintAndGetDepartment();
+            Console.Clear();
             var lectureId = PrintAndGetLecture();
+            Console.Clear();
             blService.AssignLectureToDepartment(departmentId2, lectureId);
             Console.Clear();
             Console.WriteLine("Lecture was added successfully!");
@@ -180,9 +190,13 @@ void CreateDepartmentAddStudentAddLecture()
     Console.WriteLine("-----------------------------------------------------------------");
     Console.WriteLine("      Create DEPARTMENT + add existing STUDENT and LECTURE");
     Console.WriteLine("-----------------------------------------------------------------\n");
+    Console.Clear();
     var departmentName = CreateDepartment();
+    Console.Clear();
     int studentId = PrintAndGetStudent();
+    Console.Clear();
     int lectureId = PrintAndGetLecture();
+    Console.Clear();
     blService.AssignStudentAndLectureToDepartment(studentId, lectureId, departmentName);
     Console.WriteLine("Department was created + student and lecture assigned succesfully!");
     EnterToMainMenu();
@@ -196,7 +210,7 @@ int PrintAndGetStudent()
     var allStudents = blService.GetAllStudents();
     foreach (var item in allStudents)
     {
-        Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName}");
+        Console.WriteLine($"[{item.Id}] {item.FirstName} {item.LastName}");
     }
     var studentId = int.Parse(Console.ReadLine());
 
@@ -211,7 +225,7 @@ int PrintAndGetLecture()
     var allLectures = blService.GetAllLectures();
     foreach (var item in allLectures)
     {
-        Console.WriteLine($"{item.Id} {item.Name}");
+        Console.WriteLine($"[{item.Id}] {item.Name}");
     }
     var lectureId = int.Parse(Console.ReadLine());
 
@@ -226,7 +240,7 @@ int PrintAndGetDepartment()
     var allDepartments = blService.GetAllDepartments();
     foreach (var item in allDepartments)
     {
-        Console.WriteLine($"{item.Id} {item.Name}");
+        Console.WriteLine($"[{item.Id}] {item.Name}");
     }
     var departmentId = int.Parse(Console.ReadLine());
 
@@ -292,6 +306,7 @@ Department GetDepartmentById()
 void CreateStudentToDepartmentAndAssignDepartmentsLectures()
 {
     var department = GetDepartmentById();
+    Console.Clear();
 
     Console.WriteLine("Enter student's First Name: ");
     var studentFirstName = Console.ReadLine();
@@ -302,9 +317,9 @@ void CreateStudentToDepartmentAndAssignDepartmentsLectures()
     Console.WriteLine("Enter student's date of birth: ");
     var studenDateOfBIrth = DateTime.Parse(Console.ReadLine());
 
+    Console.Clear();
     var lectures = blService.GetLecturesByDepartment(department);
     blService.CreateStudentToDepartmentWithLectures(studentFirstName, studentLastName, studenDateOfBIrth, department, lectures);
-    Console.WriteLine("Successuffly created Student to department with all it's lectures!");
 }
 
 void CreateStudentToDepartment()
