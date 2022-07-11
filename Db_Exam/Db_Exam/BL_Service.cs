@@ -45,23 +45,34 @@ namespace Db_Exam
             //GetLectureByName(name);            
             AssignLectureToDepartment(name, department);
         }
-        public void AssignStudentAndLectureToDepartment(Student student, Lecture lecture, Department department)
+        //public void AssignStudentAndLectureToDepartment(int student, int lecture, int department)
+        //{
+        //    department.Lectures.Add(lecture); //bandyk per _repo gaut reikiamas dalis
+        //    department.Students.Add(student);
+        //    _dbRepository.UpdateDepartment(department);
+        //    _dbRepository.SaveChanges();
+        //}
+        //public void AssingLectureToDepartment2(Lecture lecture, Department department)
+        //{
+        //    lecture.Departments.Add(department);
+        //    _dbRepository.Updatelecture(lecture);
+        //    _dbRepository.SaveChanges();
+        //}
+        public void AssignStudentAndLectureToDepartment(int studentId, int lectureId, string departmentName)
         {
-            department.Lectures.Add(lecture); //bandyk per _repo gaut reikiamas dalis
+            var student = _dbRepository.GetStudentById2(studentId);
+            var lecture = _dbRepository.GetLectById(lectureId);
+            var department = _dbRepository.GetDepartmentByName(departmentName);
+
             department.Students.Add(student);
+            department.Lectures.Add(lecture);
             _dbRepository.UpdateDepartment(department);
             _dbRepository.SaveChanges();
         }
-        public void AssingLectureToDepartment2(Lecture lecture, Department department)
+        public void AssignLectureToDepartment2(int id, int lecId)
         {
-            lecture.Departments.Add(department);
-            _dbRepository.Updatelecture(lecture);
-            _dbRepository.SaveChanges();
-        }
-        public void Assign2(int id, int lecId)
-        {
-            var depart = GetDepartmentById(id);
-            var lecture = GetLectureById(lecId);
+            var depart = _dbRepository.GetDepartmentById2(id);
+            var lecture = _dbRepository.GetLectById(lecId);
             depart.Lectures.Add(lecture);
             _dbRepository.UpdateDepartment(depart);
             _dbRepository.SaveChanges();
@@ -81,25 +92,25 @@ namespace Db_Exam
             _dbRepository.Updatelecture(lecture);
             _dbRepository.SaveChanges();
         }
-        public void AssignLectureToDepartment3(Lecture lecture, Department department)
-        {
-            //var lecturee = GetLectureById(lecture);
+        //public void AssignLectureToDepartment3(Lecture lecture, Department department)
+        //{
+        //    //var lecturee = GetLectureById(lecture);
 
-            if (lecture.Departments.Any(d => d.Name.ToUpper() == department.Name.ToUpper()))
-            {
-                return;
-            }
-            var departmentFromDb = _dbRepository.GetDepartmentByName(department.Name);
-            //var lectureFromDB = _dbRepository.GetLectureByName(name);
-            lecture.Departments.Add(departmentFromDb ?? new Department(department.Name));
+        //    if (lecture.Departments.Any(d => d.Name.ToUpper() == department.Name.ToUpper()))
+        //    {
+        //        return;
+        //    }
+        //    var departmentFromDb = _dbRepository.GetDepartmentByName(department.Name);
+        //    //var lectureFromDB = _dbRepository.GetLectureByName(name);
+        //    lecture.Departments.Add(departmentFromDb ?? new Department(department.Name));
 
-            _dbRepository.Updatelecture(lecture);
-            _dbRepository.SaveChanges();
-        }
+        //    _dbRepository.Updatelecture(lecture);
+        //    _dbRepository.SaveChanges();
+        //}
         public Lecture GetLectureById(int lectureId)
         {
             return _dbRepository.GetLectureById(lectureId);
-        }
+        }       
         public List<Lecture> GetAllLectures()
         {
             return _dbRepository.GetAllLectures();
@@ -134,7 +145,7 @@ namespace Db_Exam
             _dbRepository.AddLecture(lecture);
             _dbRepository.SaveChanges();
         }
-        public void CreateDepartment(string name)
+        public void CreateDepartment2(string name)
         {
             var department = new Department(name);
             _dbRepository.AddDepartment(department);

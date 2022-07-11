@@ -39,10 +39,10 @@ namespace Db_Exam
         {
             return _dbContext.Lectures.FirstOrDefault(l => l.Name == name);
         }
-        public Department GetDepartmentByName(string name)
-        {
-            return _dbContext.Departments.FirstOrDefault(d => d.Name == name);
-        }
+        //public Department GetDepartmentByName(string name)
+        //{
+        //    return _dbContext.Departments.FirstOrDefault(d => d.Name == name);
+        //}
         public List<Student> GetStudentsByDepartment(int departmentId)
         {
             //return _dbContext.Students.Where(s => s.StudentDepartment.Id = departmentId).Tolist();
@@ -79,6 +79,22 @@ namespace Db_Exam
         public void UpdateDepartment(Department department)
         {
             _dbContext.Attach(department); // prijungia objekta prie EF tracker
+        }
+        public Student GetStudentById2(int studentId)
+        {
+            return _dbContext.Students.Include(s => s.Department).Include(s => s.Lectures).FirstOrDefault(s => s.Id == studentId);
+        }
+        public Lecture GetLectById(int lectureId)
+        {
+            return _dbContext.Lectures.Include(l => l.Departments).FirstOrDefault(l => l.Id == lectureId);
+        }
+        public Department GetDepartmentByName(string departmentName)
+        {
+            return _dbContext.Departments.Include(d => d.Students).Include(d => d.Lectures).FirstOrDefault(d => d.Name == departmentName);
+        }
+        public Department GetDepartmentById2(int id)
+        {
+            return _dbContext.Departments.Include(d => d.Lectures).FirstOrDefault(d => d.Id == id);
         }
         public void SaveChanges()
         {

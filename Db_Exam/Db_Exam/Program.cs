@@ -5,51 +5,93 @@ using System.Linq;
 var blService = new BL_Service();
 
 //MainMenu3();
-Assign();
-
-void Assign()
+//Assign();
+Task1();
+void Task1()
+{
+    var departmentName = CreateDepartment2();
+    int studentId = PrintAndGetStudent();
+    int lectureId = PrintAndGetLecture();
+    blService.AssignStudentAndLectureToDepartment(studentId, lectureId, departmentName);
+}
+void AssignLectureToDepartment()
 {
     Console.WriteLine("Enter DEP id:");
     var id = int.Parse(Console.ReadLine());
+    Console.WriteLine("Enter student id:");
+    var studentId = int.Parse(Console.ReadLine());
     Console.WriteLine("Enter lecture id:");
     var lectureId = int.Parse(Console.ReadLine());
-    blService.Assign2(id, lectureId);
+    blService.AssignLectureToDepartment2(id, lectureId);
 }
-
 Student GetStudentById(int studentId)
 {
     return blService.GetStudentById(studentId);
 }
-Student PrintAndGetStudent()
+int PrintAndGetStudent()
 {
-    Console.WriteLine("-------------------------------------------");
-    Console.WriteLine("            [SELECT STUDENT]");
-    Console.WriteLine("-------------------------------------------");
-    var students = blService.GetAllStudents();
-    foreach (var item in students)
+    var allStudents = blService.GetAllStudents();
+    foreach (var item in allStudents)
     {
-        Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName} {item.DateOfBirth}");
+        Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName}");
     }
-
     var studentId = int.Parse(Console.ReadLine());
-    return GetStudentById(studentId);
+
+    return studentId;
 }
-void AssignStudentAndLectureToDepartment()
+int PrintAndGetLecture()
 {
-    var departmentToAdd = GetDepartmentById();// prints and returns selection
-    var studentToAdd = PrintAndGetStudent();
-    var allLectures = GetAllLectures();
-    Console.WriteLine("-------------------------------------------");
-    Console.WriteLine("            [SELECT LECTURE]");
-    Console.WriteLine("-------------------------------------------");
+    var allLectures = blService.GetAllLectures();
     foreach (var item in allLectures)
     {
         Console.WriteLine($"{item.Id} {item.Name}");
     }
-    var selectedLecture = int.Parse(Console.ReadLine());
-    var lectureToAdd = GetLectureById(selectedLecture);
-    blService.AssignStudentAndLectureToDepartment(studentToAdd, lectureToAdd, departmentToAdd);
+    var lectureId = int.Parse(Console.ReadLine());
+
+    return lectureId;
 }
+int PrintAndGetDepartment()
+{
+    var allDepartments = blService.GetAllDepartments();
+    foreach (var item in allDepartments)
+    {
+        Console.WriteLine($"{item.Id} {item.Name}");
+    }
+    var departmentId = int.Parse(Console.ReadLine());
+
+    return departmentId;
+}
+//------------------------------------
+//Student PrintAndGetStudent()
+//{
+//    Console.WriteLine("-------------------------------------------");
+//    Console.WriteLine("            [SELECT STUDENT]");
+//    Console.WriteLine("-------------------------------------------");
+//    var students = blService.GetAllStudents();
+//    foreach (var item in students)
+//    {
+//        Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName} {item.DateOfBirth}");
+//    }
+
+//    var studentId = int.Parse(Console.ReadLine());
+//    return GetStudentById(studentId);
+//}
+//void AssignStudentAndLectureToDepartment()
+//{
+//    var departmentToAdd = GetDepartmentById();// prints and returns selection
+//    var studentToAdd = PrintAndGetStudent();
+//    var allLectures = GetAllLectures();
+//    Console.WriteLine("-------------------------------------------");
+//    Console.WriteLine("            [SELECT LECTURE]");
+//    Console.WriteLine("-------------------------------------------");
+//    foreach (var item in allLectures)
+//    {
+//        Console.WriteLine($"{item.Id} {item.Name}");
+//    }
+//    var selectedLecture = int.Parse(Console.ReadLine());
+//    var lectureToAdd = GetLectureById(selectedLecture);
+//    blService.AssignStudentAndLectureToDepartment(studentToAdd, lectureToAdd, departmentToAdd);
+//}
 
 void MainMenu3()
 {
@@ -65,7 +107,7 @@ void MainMenu3()
     switch (menuSelection)
     {
         case 1:
-            CreateDepartment();
+            CreateDepartment2();
             break;
         default:
             WrongInput();
@@ -106,7 +148,7 @@ int DepartmentMenu()
         case 1:
             //CreateDepartment();
             //Console.WriteLine($"Department has been created!");
-            CreateDepartment();
+            CreateDepartment2();
             //AssignLectureToDepartment();
 
             break;
@@ -129,7 +171,7 @@ int DepartmentMenu()
         case 6:
             var lecture = PrintAndGetLecture();
             var department = PrintAndGetDepartment();
-            AssignLectureToDepartment(lecture, department);
+            //AssignLectureToDepartment(lecture, department);
             break;
         default:
             WrongInput();
@@ -220,10 +262,10 @@ int MainMenu2()
     }
     return menuChoise;
 }
-void AssignLectureToDepartment(Lecture lecture, Department department)
-{   
-    blService.AssignLectureToDepartment3(lecture, department);
-}
+//void AssignLectureToDepartment(Lecture lecture, Department department)
+//{   
+//    blService.AssignLectureToDepartment3(lecture, department);
+//}
 void UpdateLecture(Lecture lecture)
 {
     blService.UpdateLecture(lecture);
@@ -276,26 +318,26 @@ void PrintAllLectures()
         Console.WriteLine($"[{item.Id.ToString()}] {item.Name}");
     }
 }
-Lecture PrintAndGetLecture()
-{
-    Console.WriteLine("-------------------------------------------");
-    Console.WriteLine("            [SELECT LECTURE]");
-    Console.WriteLine("-------------------------------------------");
-    PrintAllLectures();
+//Lecture PrintAndGetLecture()
+//{
+//    Console.WriteLine("-------------------------------------------");
+//    Console.WriteLine("            [SELECT LECTURE]");
+//    Console.WriteLine("-------------------------------------------");
+//    PrintAllLectures();
 
-    var lectureId = int.Parse(Console.ReadLine());
-    return blService.GetLectureById(lectureId);
-}
-Department PrintAndGetDepartment()
-{
-    Console.WriteLine("-------------------------------------------");
-    Console.WriteLine("            [SELECT DEPARTMENT]");
-    Console.WriteLine("-------------------------------------------");
-    PrintAllDepartments();
+//    var lectureId = int.Parse(Console.ReadLine());
+//    return blService.GetLectureById(lectureId);
+//}
+//Department PrintAndGetDepartment()
+//{
+//    Console.WriteLine("-------------------------------------------");
+//    Console.WriteLine("            [SELECT DEPARTMENT]");
+//    Console.WriteLine("-------------------------------------------");
+//    PrintAllDepartments();
 
-    var departmentId = int.Parse(Console.ReadLine());
-    return blService.GetDepartmentById(departmentId);
-}
+//    var departmentId = int.Parse(Console.ReadLine());
+//    return blService.GetDepartmentById(departmentId);
+//}
 Department GetDepartmentById()
 {
     Console.WriteLine("-------------------------------------------");
@@ -365,10 +407,11 @@ void CreateLecture()
 
     blService.CreateLecture(lectureName);
 }
-void CreateDepartment()
+string CreateDepartment2()
 {
     Console.WriteLine("Enter department's name: ");
     var departmentName = Console.ReadLine();
 
-    blService.CreateDepartment(departmentName);
+    blService.CreateDepartment2(departmentName);
+    return departmentName;
 }
