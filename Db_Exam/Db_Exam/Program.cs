@@ -12,7 +12,8 @@ void MainMenu()
         Console.WriteLine("--------------------------------------------------------------------------------------------------");
         Console.WriteLine("                    [Welcome to DB_Exam, please select task from list below]");
         Console.WriteLine("--------------------------------------------------------------------------------------------------");
-        Console.WriteLine("\n[1] Create DEPARTMENT + add existing STUDENT and LECTURE \n[2] Add STUDENT / LECTURE to existing DEPARTMENT");
+        Console.WriteLine("                                                                                       [9] - Exit!");
+        Console.WriteLine("[1] Create DEPARTMENT + add existing STUDENT and LECTURE \n[2] Add STUDENT / LECTURE to existing DEPARTMENT");
         Console.WriteLine("[3] Create LECTURE + assign to existing DEPARTMENT \n[4] Create STUDENT + assign to existing DEPARTMENT with LECTURES");
         Console.WriteLine("[5] Transfer STUDENT to other DEPARTMENT + change LECTURES by DEPARTMENT");
         Console.WriteLine("[6] Show STUDENTS of DEPARTMENT | [7] Show LECTURES of DEPARTMENT | [8] Show LECTURES of STUDENT");
@@ -43,12 +44,21 @@ void MainMenu()
             case 8:
                 ShowLecturesOfStudent();
                 break;
+            case 9:
+                ExitApplication();
+                break;
             default:
                 WrongInput();
                 MainMenu();
                 break;
         }
     }
+}
+void ExitApplication()
+{
+    Console.Clear();
+    Console.WriteLine("GoodBye!");
+    Environment.Exit(0);
 }
 
 void EnterToMainMenu()
