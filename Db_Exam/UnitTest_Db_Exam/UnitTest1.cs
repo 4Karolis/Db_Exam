@@ -1,11 +1,13 @@
 using Db_Exam;
 using Db_Exam.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace UnitTest_Db_Exam
 {
     public class Tests
     {
         BL_Service blService = new BL_Service();
+        ExamDbContext _dbContext = new ExamDbContext();
 
         [SetUp]
         public void Setup()
@@ -18,7 +20,7 @@ namespace UnitTest_Db_Exam
         {
             //Arrange
             var blService = new BL_Service();
-            var expectedResult = new Student("Aurimas","Kantaplis", DateTime.Parse("1991-12-31 00:00:00.0000000"));
+            var expectedResult = new Student("Aurimas", "Kantaplis", DateTime.Parse("1991-12-31 00:00:00.0000000"));
 
             //Act
             var actualResult = blService.GetStudentById(1);
@@ -32,12 +34,11 @@ namespace UnitTest_Db_Exam
         public void GetLecturesByStudentId()
         {
             //Arrange
-            var studentId = 30;            
+            var studentId = 30;
             var listOfLecture = new List<Lecture>();
-            listOfLecture.Add(new Lecture ("Math"));
-            listOfLecture.Add(new Lecture ("C#"));
-            listOfLecture.Add(new Lecture ("Test Lecture"));
-
+            listOfLecture.Add(new Lecture("Math"));
+            listOfLecture.Add(new Lecture("C#"));
+            listOfLecture.Add(new Lecture("Test Lecture"));
 
             //Act  
             var result = blService.GetLecturesByStudentId(studentId);
@@ -46,6 +47,20 @@ namespace UnitTest_Db_Exam
             Assert.AreEqual(result[0].Name, listOfLecture[0].Name);
             Assert.AreEqual(result[1].Name, listOfLecture[1].Name);
             Assert.AreEqual(result[2].Name, listOfLecture[2].Name);
+        }
+
+        [Test]
+        public void CreateLecture()
+        {
+            //Arrange
+            string lectureName = "UnitTest Lecture";
+
+            //Act
+            blService.CreateLecture(lectureName);
+            Lecture actualResult = _dbContext.GetLectureByName(lectureName);
+            
+            //Assert
+
         }
     }
 }
