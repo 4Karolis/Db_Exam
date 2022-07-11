@@ -33,6 +33,14 @@ namespace Db_Exam.Entities
             Lectures = new List<Lecture>();
             Department = department;
         }
+        public Student(string firstName, string lastName, DateTime dateOfBirth, Department department, List<Lecture> lectures)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            DateOfBirth = dateOfBirth;
+            Lectures = lectures;
+            Department = department;
+        }
         private Student() { }
     }
 }

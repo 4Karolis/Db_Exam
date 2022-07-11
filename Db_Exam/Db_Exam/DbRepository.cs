@@ -80,6 +80,14 @@ namespace Db_Exam
         {
             _dbContext.Attach(department); // prijungia objekta prie EF tracker
         }
+        //public Student GetStudentByNameLastNameAndDateOfBirth(string name, string lastName)
+        //{
+        //    return _dbContext.Students.Where(s=>s.FirstName == name && s.LastName == lastName);
+        //}
+        public List<Lecture> GetLecturesByDepartment(Department department)
+        {
+            return _dbContext.Lectures.Include(l => l.Students).Include(l => l.Departments).Where(l => l.Departments.Contains(department)).ToList();
+        }
         public Student GetStudentById2(int studentId)
         {
             return _dbContext.Students.Include(s => s.Department).Include(s => s.Lectures).FirstOrDefault(s => s.Id == studentId);

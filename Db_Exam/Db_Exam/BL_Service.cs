@@ -22,9 +22,13 @@ namespace Db_Exam
         {
             return _dbRepository.GetAllStudents();
         }
+        public List<Lecture> GetLecturesByDepartment(Department department)
+        {
+            return _dbRepository.GetLecturesByDepartment(department);
+        }
         public Department GetDepartmentById(int id)
         {
-            return _dbRepository.GetDepartmentById(id);
+            return _dbRepository.GetDepartmentById2(id);
         }
         public List<Department> GetAllDepartments()
         {
@@ -151,6 +155,13 @@ namespace Db_Exam
         public void UpdateLecture(Lecture lecture)
         {
             _dbRepository.Updatelecture(lecture);
+        }
+        public void CreateStudentToDepartmentWithLectures(string firstName, string lastName, DateTime dateOfBirth, Department department, List<Lecture> lectures)
+        {
+            var departmentLectures = GetLecturesByDepartment(department);
+            var student = new Student(firstName, lastName, dateOfBirth, department, departmentLectures);
+            _dbRepository.AddStudent(student);
+            _dbRepository.SaveChanges();
         }
         public void CreateStudentToDepartment(string firstName, string lastName, DateTime dateOfBirth, Department department)
         {

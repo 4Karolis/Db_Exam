@@ -6,8 +6,15 @@ var blService = new BL_Service();
 
 //MainMenu3();
 //Assign();
-CreateLectureAndAssignToDepartment();
+CreateStudentToDepartment();
 
+//Task4
+void CreateStudentAddToDepartmentAndAssignLectures()
+{
+    Console.WriteLine("Task 4: Create Student + assign to Department + assign all Department's Lectures");
+    //CreateStudent();
+    CreateStudentToDepartmentAndAssignDepartmentsLectures();
+}
 //Task3
 void CreateLectureAndAssignToDepartment()
 {
@@ -17,7 +24,6 @@ void CreateLectureAndAssignToDepartment()
     blService.AssignLectureToDepartment(name, departmentId);
     Console.WriteLine("Lecture created and assigned successfully!");
 }
-
 //Task2
 void AddStudentAndLectureToExistingDepartment()
 {
@@ -415,6 +421,25 @@ void CreateLectureToDepartment2()
     var department = GetDepartmentById();
     blService.CreateLectureToDepartment(name, department);
 
+}
+void CreateStudentToDepartmentAndAssignDepartmentsLectures()
+{
+    var department = GetDepartmentById();
+
+    Console.WriteLine("Enter student's First Name: ");
+    var studentFirstName = Console.ReadLine();
+
+    Console.WriteLine("Enter student's LastName: ");
+    var studentLastName = Console.ReadLine();
+
+    Console.WriteLine("Enter student's date of birth: ");
+    var studenDateOfBIrth = DateTime.Parse(Console.ReadLine());
+
+    //blService.CreateStudentToDepartment(studentFirstName, studentLastName, studenDateOfBIrth, department);
+
+    var lectures = blService.GetLecturesByDepartment(department);
+    blService.CreateStudentToDepartmentWithLectures(studentFirstName, studentLastName, studenDateOfBIrth, department, lectures);
+    Console.WriteLine("Successuffly created Student to department with all it's lectures!");
 }
 
 void CreateStudentToDepartment()
