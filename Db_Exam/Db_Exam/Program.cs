@@ -6,7 +6,17 @@ var blService = new BL_Service();
 
 //MainMenu3();
 //Assign();
-CreateStudentToDepartment();
+
+//Task5
+void AssignStudentToDifferentDepartmentAndAssignDepartmentsLectures()
+{
+    Console.WriteLine("Task 5: Transfer Student to other Department with Department's Lectures");
+    var studentId = PrintAndGetStudent();
+    var departmentId = PrintAndGetDepartment();    
+    blService.TrasnferStudentToDepartmentWithLectures(studentId, departmentId);
+    Console.WriteLine("Student was transfered to other Department with that department's Lectures!");
+
+}
 
 //Task4
 void CreateStudentAddToDepartmentAndAssignLectures()

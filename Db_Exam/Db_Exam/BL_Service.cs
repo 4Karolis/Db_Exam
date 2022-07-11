@@ -14,6 +14,18 @@ namespace Db_Exam
         {
             _dbRepository = new DbRepository(); 
         }
+        public void TrasnferStudentToDepartmentWithLectures(int studentId, int departmentId)
+        {
+            var student = GetStudentById(studentId);
+            var department = GetDepartmentById(departmentId);
+            var lectures = GetLecturesByDepartmentId(departmentId);
+
+            student.Lectures.Clear();
+            student.Department = department;
+            student.Lectures = lectures;
+            _dbRepository.UpdateStudent(student);
+            _dbRepository.SaveChanges();
+        }
         public Student GetStudentById(int studentId)
         {
             return _dbRepository.GetStudentById(studentId);
@@ -25,6 +37,10 @@ namespace Db_Exam
         public List<Lecture> GetLecturesByDepartment(Department department)
         {
             return _dbRepository.GetLecturesByDepartment(department);
+        }
+        public List<Lecture> GetLecturesByDepartmentId(int departmentId)
+        {
+            return _dbRepository.GetLecturesByDepartmentId(departmentId);
         }
         public Department GetDepartmentById(int id)
         {

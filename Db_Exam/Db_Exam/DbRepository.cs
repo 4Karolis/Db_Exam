@@ -21,7 +21,7 @@ namespace Db_Exam
         //}
         public Student GetStudentById(int studentId)
         {
-            return _dbContext.Students.FirstOrDefault(s=>s.Id == studentId);
+            return _dbContext.Students.Include(s=>s.Department).Include(s=>s.Lectures).FirstOrDefault(s=>s.Id == studentId);
         }
         public List<Student> GetAllStudents()
         {
@@ -84,6 +84,10 @@ namespace Db_Exam
         //{
         //    return _dbContext.Students.Where(s=>s.FirstName == name && s.LastName == lastName);
         //}
+        public List<Lecture> GetLecturesByDepartmentId(int departmentId)
+        {
+            return _dbContext.Lectures.Include(l => l.Students).Include(l => l.Departments).Where(l => l.Departments.Any(d=>d.Id == departmentId)).ToList();
+        }
         public List<Lecture> GetLecturesByDepartment(Department department)
         {
             return _dbContext.Lectures.Include(l => l.Students).Include(l => l.Departments).Where(l => l.Departments.Contains(department)).ToList();
@@ -100,6 +104,7 @@ namespace Db_Exam
         {
             return _dbContext.Departments.Include(d => d.Students).Include(d => d.Lectures).FirstOrDefault(d => d.Name == departmentName);
         }
+        
         public Department GetDepartmentById2(int id)
         {
             return _dbContext.Departments.Include(d => d.Lectures).FirstOrDefault(d => d.Id == id);
