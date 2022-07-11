@@ -29,7 +29,7 @@ namespace Db_Exam
         }
         public Lecture GetLectureById(int lectureId)
         {
-            return _dbContext.Lectures.FirstOrDefault(l => l.Id == lectureId);
+            return _dbContext.Lectures.Include(l => l.Departments).Include(l=> l.Students).FirstOrDefault(l => l.Id == lectureId);
         }
         public List<Lecture> GetAllLectures()
         {
@@ -37,7 +37,7 @@ namespace Db_Exam
         }
         public Lecture GetLectureByName(string name)
         {
-            return _dbContext.Lectures.FirstOrDefault(l => l.Name == name);
+            return _dbContext.Lectures.Include(l=>l.Departments).Include(l=>l.Students).FirstOrDefault(l => l.Name == name);
         }
         //public Department GetDepartmentByName(string name)
         //{

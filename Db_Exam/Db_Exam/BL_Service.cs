@@ -58,6 +58,31 @@ namespace Db_Exam
         //    _dbRepository.Updatelecture(lecture);
         //    _dbRepository.SaveChanges();
         //}
+        public void AssignLectureToDepartment(string lectureName, int depatmentId)
+        {
+            var lecture = _dbRepository.GetLectureByName(lectureName);
+            var department = _dbRepository.GetDepartmentById2(depatmentId);
+            department.Lectures.Add(lecture);
+            _dbRepository.UpdateDepartment(department);
+            _dbRepository.SaveChanges();
+        }
+        public void AssignLectureToDepartment(int depatmentId, int lectureId)
+        {
+            var department = _dbRepository.GetDepartmentById2(depatmentId);
+            var lecture = _dbRepository.GetLectureById(lectureId);
+            department.Lectures.Add(lecture);
+            _dbRepository.UpdateDepartment(department);
+            _dbRepository.SaveChanges();
+            Console.WriteLine("Lecture added successfully!");
+        }
+        public void AssignStudentToDepartment(int departmentId, int studentId)
+        {
+            var department = _dbRepository.GetDepartmentById2(departmentId);
+            var student = _dbRepository.GetStudentById2(studentId);
+            department.Students.Add(student);
+            _dbRepository.UpdateDepartment(department);
+            _dbRepository.SaveChanges();
+        }
         public void AssignStudentAndLectureToDepartment(int studentId, int lectureId, string departmentName)
         {
             var student = _dbRepository.GetStudentById2(studentId);
