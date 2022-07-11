@@ -7,6 +7,18 @@ var blService = new BL_Service();
 //MainMenu3();
 //Assign();
 
+ShowAllStudentsOfDepartment();
+//Task6
+void ShowAllStudentsOfDepartment()
+{
+    var departmentId = PrintAndGetDepartment();
+    var students = blService.GetStudentsByDepartmentId(departmentId);
+    Console.WriteLine($"Students from department [{departmentId}]:");
+    foreach (var item in students)
+    {
+        Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName} {item.DateOfBirth}");
+    }
+}
 //Task5
 void AssignStudentToDifferentDepartmentAndAssignDepartmentsLectures()
 {

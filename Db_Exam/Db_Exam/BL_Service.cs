@@ -26,6 +26,10 @@ namespace Db_Exam
             _dbRepository.UpdateStudent(student);
             _dbRepository.SaveChanges();
         }
+        public List<Student> GetStudentsByDepartmentId(int departmentId)
+        {
+            return _dbRepository.GetStudentsByDepartmentId(departmentId);
+        }
         public Student GetStudentById(int studentId)
         {
             return _dbRepository.GetStudentById(studentId);
