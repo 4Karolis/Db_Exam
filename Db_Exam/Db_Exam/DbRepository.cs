@@ -14,108 +14,95 @@ namespace Db_Exam
         public DbRepository()
         {
             _dbContext = new ExamDbContext();
+        }       
+
+        #region STUDENT
+        public Student GetStudentById(int studentId)
+        {
+            return _dbContext.Students.Include(s => s.Department).Include(s => s.Lectures).FirstOrDefault(s => s.Id == studentId);
         }
-        //public void AddLectureToDepartment(Department department, Lecture lecture)
-        //{
-        //    _dbContext.Lectures.Add(lecture);
-        //}
         public List<Student> GetStudentsByDepartmentId(int departmentId)
         {
             return _dbContext.Students.Include(s => s.Department).Include(s => s.Lectures).Where(s => s.DepartmentId == departmentId).ToList();
         }
-        public Student GetStudentById(int studentId)
+        public List<Student> GetStudentsByDepartment(int departmentId)
         {
-            return _dbContext.Students.Include(s=>s.Department).Include(s=>s.Lectures).FirstOrDefault(s=>s.Id == studentId);
+            return _dbContext.Students.Where(s => s.Department.Id == departmentId).ToList();
         }
         public List<Student> GetAllStudents()
         {
             return _dbContext.Students.ToList();
         }
+
+        #endregion
+
+        #region LECTURE
+
+        public Lecture GetLectureByName(string name)
+        {
+            return _dbContext.Lectures.Include(l => l.Departments).Include(l => l.Students).FirstOrDefault(l => l.Name == name);
+        }
+        public List<Lecture> GetLecturesByStudentId(int studentId)
+        {
+            return _dbContext.Lectures.Where(l => l.Students.Any(s => s.Id == studentId)).ToList();
+        }
         public Lecture GetLectureById(int lectureId)
         {
-            return _dbContext.Lectures.Include(l => l.Departments).Include(l=> l.Students).FirstOrDefault(l => l.Id == lectureId);
+            return _dbContext.Lectures.Include(l => l.Departments).FirstOrDefault(l => l.Id == lectureId);
+        }
+        public List<Lecture> GetLecturesByDepartment(Department department)
+        {
+            return _dbContext.Lectures.Include(l => l.Students).Include(l => l.Departments).Where(l => l.Departments.Contains(department)).ToList();
+        }
+        public List<Lecture> GetLecturesByDepartmentId(int departmentId)
+        {
+            return _dbContext.Lectures.Include(l => l.Students).Include(l => l.Departments).Where(l => l.Departments.Any(d => d.Id == departmentId)).ToList();
         }
         public List<Lecture> GetAllLectures()
         {
             return _dbContext.Lectures.ToList();
         }
-        public Lecture GetLectureByName(string name)
+        #endregion
+
+        #region DEPARTMENT
+        public Department GetDepartmentById2(int id)
         {
-            return _dbContext.Lectures.Include(l=>l.Departments).Include(l=>l.Students).FirstOrDefault(l => l.Name == name);
+            return _dbContext.Departments.Include(d => d.Lectures).FirstOrDefault(d => d.Id == id);
         }
-        //public Department GetDepartmentByName(string name)
-        //{
-        //    return _dbContext.Departments.FirstOrDefault(d => d.Name == name);
-        //}
-        public List<Student> GetStudentsByDepartment(int departmentId)
+        public Department GetDepartmentByName(string departmentName)
         {
-            //return _dbContext.Students.Where(s => s.StudentDepartment.Id = departmentId).Tolist();
-            return _dbContext.Students.Where(s => s.Department.Id == departmentId).ToList();
-        }
-        public Department GetDepartmentById(int id)
-        {
-            return _dbContext.Departments.FirstOrDefault(d => d.Id == id);
+            return _dbContext.Departments.Include(d => d.Students).Include(d => d.Lectures).FirstOrDefault(d => d.Name == departmentName);
         }
         public List<Department> GetAllDepartments()
         {
             return _dbContext.Departments.ToList();
         }
-        public void AddStudent(Student student)
-        {         
-             _dbContext.Students.Add(student);
-        }
-        public void AddLecture(Lecture lecture)
-        {
-            _dbContext.Lectures.Add(lecture);
-        }
-        public void AddDepartment(Department department)
-        {            
-            _dbContext.Departments.Add(department);
-        }
+        #endregion
+
+        #region ADD + UPDATE + SAVE
         public void UpdateStudent(Student student)
         {
             _dbContext.Attach(student);
         }
         public void Updatelecture(Lecture lecture)
         {
-            _dbContext.Attach(lecture); // prijungia objekta prie EF tracker
+            _dbContext.Attach(lecture);
         }
         public void UpdateDepartment(Department department)
         {
-            _dbContext.Attach(department); // prijungia objekta prie EF tracker
+            _dbContext.Attach(department);
         }
-        //public Student GetStudentByNameLastNameAndDateOfBirth(string name, string lastName)
-        //{
-        //    return _dbContext.Students.Where(s=>s.FirstName == name && s.LastName == lastName);
-        //}4
-        public List<Lecture> GetLecturesByStudentId(int studentId)
+        public void AddStudent(Student student)
         {
-            return _dbContext.Lectures.Where(l => l.Students.Any(s => s.Id == studentId)).ToList();
+            _dbContext.Students.Add(student);
         }
-        public List<Lecture> GetLecturesByDepartmentId(int departmentId)
+        public void AddLecture(Lecture lecture)
         {
-            return _dbContext.Lectures.Include(l => l.Students).Include(l => l.Departments).Where(l => l.Departments.Any(d=>d.Id == departmentId)).ToList();
+            _dbContext.Lectures.Add(lecture);
         }
-        public List<Lecture> GetLecturesByDepartment(Department department)
+        public void AddDepartment(Department department)
         {
-            return _dbContext.Lectures.Include(l => l.Students).Include(l => l.Departments).Where(l => l.Departments.Contains(department)).ToList();
-        }
-        public Student GetStudentById2(int studentId)
-        {
-            return _dbContext.Students.Include(s => s.Department).Include(s => s.Lectures).FirstOrDefault(s => s.Id == studentId);
-        }
-        public Lecture GetLectById(int lectureId)
-        {
-            return _dbContext.Lectures.Include(l => l.Departments).FirstOrDefault(l => l.Id == lectureId);
-        }
-        public Department GetDepartmentByName(string departmentName)
-        {
-            return _dbContext.Departments.Include(d => d.Students).Include(d => d.Lectures).FirstOrDefault(d => d.Name == departmentName);
-        }
-        
-        public Department GetDepartmentById2(int id)
-        {
-            return _dbContext.Departments.Include(d => d.Lectures).FirstOrDefault(d => d.Id == id);
+            _dbContext.Departments.Add(department);
         }
         public void SaveChanges()
         {
@@ -129,5 +116,6 @@ namespace Db_Exam
 
             }
         }
+        #endregion
     }
 }

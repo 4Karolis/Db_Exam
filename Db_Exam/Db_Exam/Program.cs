@@ -6,7 +6,7 @@ var blService = new BL_Service();
 
 //MainMenu3();
 //Assign();
-
+Console.WriteLine("hi");
 //Task8
 void ShowLecturesOfStudent()
 {
@@ -96,7 +96,7 @@ void AddStudentAndLectureToExistingDepartment()
 void CreateDepartmentAddStudentAddLecture()
 {
     Console.WriteLine("Task 1: Create Department and add to it: 1) Student 2) Lecture");
-    var departmentName = CreateDepartment2();
+    var departmentName = CreateDepartment();
     int studentId = PrintAndGetStudent();
     int lectureId = PrintAndGetLecture();
     blService.AssignStudentAndLectureToDepartment(studentId, lectureId, departmentName);
@@ -172,7 +172,7 @@ void MainMenu3()
     switch (menuSelection)
     {
         case 1:
-            CreateDepartment2();
+            CreateDepartment();
             break;
         default:
             WrongInput();
@@ -201,7 +201,7 @@ int DepartmentMenu()
         case 1:
             //CreateDepartment();
             //Console.WriteLine($"Department has been created!");
-            CreateDepartment2();
+            CreateDepartment();
             //AssignLectureToDepartment();
 
             break;
@@ -327,22 +327,20 @@ List<Department> GetAllDepartments()
 {
     return blService.GetAllDepartments();
 }
-List<Lecture> GetLecturesByStudentId(int studentId)
-{
-    var allLectures = blService.GetAllLectures();
-    var studentLectures = new List<Lecture>();
-    foreach (var item in allLectures)
-    {
-        if (item.Students.Any(x => x.Id == studentId))
-        {
-            studentLectures.Add(item);
-        }
-        //item.Students.Where(s => s.Id == studentId);
-    }
-        //item.Students.Where(s => s.Id == studentId);
-        return studentLectures;
+//List<Lecture> GetLecturesByStudentId(int studentId)
+//{
+//    var allLectures = blService.GetAllLectures();
+//    var studentLectures = new List<Lecture>();
+//    foreach (var item in allLectures)
+//    {
+//        if (item.Students.Any(x => x.Id == studentId))
+//        {
+//            studentLectures.Add(item);
+//        }
+//    }
+//        return studentLectures;
     
-}
+//}
 void GetStudentsByDepartment(int departmentId)
 {
     var studentsFromDepatment = blService.GetStudentsByDepartment(departmentId);
@@ -449,11 +447,11 @@ string CreateLecture()
     blService.CreateLecture(lectureName);
     return lectureName;
 }
-string CreateDepartment2()
+string CreateDepartment()
 {
     Console.WriteLine("Enter department's name: ");
     var departmentName = Console.ReadLine();
 
-    blService.CreateDepartment2(departmentName);
+    blService.CreateDepartment(departmentName);
     return departmentName;
 }

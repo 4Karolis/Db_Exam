@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Db_Exam.Entities
+﻿namespace Db_Exam.Entities
 {
     public class Student
     {
@@ -20,10 +14,7 @@ namespace Db_Exam.Entities
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
-            Lectures = new List<Lecture>();
-            //StudentDepartment = new Department();
-            //add StudentDepartment = new Department();?
-            //NEW DEPO missing!
+            Lectures = new List<Lecture>();           
         }
         public Student(string firstName, string lastName, DateTime dateOfBirth, Department department)
         {

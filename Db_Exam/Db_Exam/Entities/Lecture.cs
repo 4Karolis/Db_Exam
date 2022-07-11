@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Db_Exam.Entities
+﻿namespace Db_Exam.Entities
 {
     public class Lecture
     {
@@ -18,19 +12,7 @@ namespace Db_Exam.Entities
             Name = name;
             Departments = new List<Department>();
             Students = new List<Student>();
-        }
-        //public Lecture(string name, Department department)
-        //{
-        //    Name = name;
-        //    Departments = department;
-        //    Departments = new List<Department>();
-        //    Students = new List<Student>();
-        //}
-        //public Lecture(string name, Department department)
-        //{
-        //    Name = name;
-        //    LectureDepartments = LectureDepartments.Add(department);
-        //}
+        }        
         private Lecture() { }
     }
 }
