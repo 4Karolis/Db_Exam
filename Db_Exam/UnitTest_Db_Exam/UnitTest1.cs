@@ -7,7 +7,7 @@ namespace UnitTest_Db_Exam
     public class Tests
     {
         BL_Service blService = new BL_Service();
-        ExamDbContext _dbContext = new ExamDbContext();
+        DbRepository _dbRepository = new DbRepository();
 
         [SetUp]
         public void Setup()
@@ -35,32 +35,48 @@ namespace UnitTest_Db_Exam
         {
             //Arrange
             var studentId = 30;
-            var listOfLecture = new List<Lecture>();
-            listOfLecture.Add(new Lecture("Math"));
-            listOfLecture.Add(new Lecture("C#"));
-            listOfLecture.Add(new Lecture("Test Lecture"));
+            var expextedList = new List<Lecture>();
+            expextedList.Add(new Lecture("Math"));
+            expextedList.Add(new Lecture("C#"));
+            expextedList.Add(new Lecture("Test Lecture"));
 
             //Act  
             var result = blService.GetLecturesByStudentId(studentId);
 
             //Assert
-            Assert.AreEqual(result[0].Name, listOfLecture[0].Name);
-            Assert.AreEqual(result[1].Name, listOfLecture[1].Name);
-            Assert.AreEqual(result[2].Name, listOfLecture[2].Name);
+            Assert.AreEqual(result[0].Name, expextedList[0].Name);
+            Assert.AreEqual(result[1].Name, expextedList[1].Name);
+            Assert.AreEqual(result[2].Name, expextedList[2].Name);
         }
 
         [Test]
         public void CreateLecture()
         {
             //Arrange
-            string lectureName = "UnitTest Lecture";
+            string expectedLectureName = "UnitTest Lecture";
 
             //Act
-            blService.CreateLecture(lectureName);
-            Lecture actualResult = _dbContext.GetLectureByName(lectureName);
-            
-            //Assert
+            blService.CreateLecture(expectedLectureName);
+            Lecture actualResult = _dbRepository.GetLectureByName(expectedLectureName);
 
+            //Assert
+            Assert.AreEqual(actualResult.Name, expectedLectureName);
+        }
+        [Test]
+        public void UpdateLecture()
+        {
+            //Arrange
+            var lectureToUpdate = _dbRepository.GetLectureByName("UnitTest Lecture");
+            var updatedLectureName = "UnitTest Lecture Updated";
+
+            //Act
+            lectureToUpdate.Name = updatedLectureName;
+            _dbRepository.Updatelecture(lectureToUpdate);
+            _dbRepository.SaveChanges();
+            var result = _dbRepository.GetLectureByName(updatedLectureName);
+
+            //Assert
+            Assert.AreEqual(result.Name, updatedLectureName);
         }
     }
 }
